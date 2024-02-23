@@ -125,15 +125,16 @@ int main() {
                 pilot2.leavePlane();
                 pilot1.boardPlane(&plane1);
             }
-            // Print the current pilot and the plane they are controlling
-            std::cout << "Current Pilot: " << (pilot1.getName() == "Pilot-in-Command" ? "Pilot-in-Command" : "Co-Pilot")
-                << ", Plane Memory Address: " << pilot1.myPlane << std::endl;
-        }
 
-        // Print the time and position of the plane
-        double pos_temp = plane1.getPos();
-        std::cout << "Time: " << i << " seconds, Position: " << pos_temp << " miles." << std::endl;
+            // Print the current pilot and the plane they are controlling
+            std::cout << "Current Pilot: " << (plane1.getAt_SCE() ? pilot1.getName() : pilot2.getName())
+                << ", Plane Memory Address: " << (plane1.getAt_SCE() ? pilot1.myPlane : pilot2.myPlane) << std::endl;
+
+            // Print the time and position of the plane
+            std::cout << "Time: " << i << " seconds, Position: " << plane1.getPos() << " miles." << std::endl;
+        }
     }
+
 
     return 0;
 }
