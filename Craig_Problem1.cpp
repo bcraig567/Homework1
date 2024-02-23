@@ -11,15 +11,17 @@ int main()
     std::vector<double> RearSeatWeight;
     double maxGrossWeight = 2950, forwardCGLimit = 82.1, aftCGLimit = 84.7;
 
-    //Input
+    // Inputting everything
     std::cout << "Enter airplane empty weight (pounds):";
     std::cin >> emptyWeight;
     std::cout << "Enter airplane empty-weight moment (pounds-inches): ";
     std::cin >> emptyWeightMoment;
     std::cout << "Enter number of front seat occupants:";
     std::cin >> FrontSeatOccupants;
+
+    // Using a range-based for loop for FrontSeatWeight input
     for (int i = 0; i < FrontSeatOccupants; ++i) {
-        int w = 0;
+        double w = 0; // Changed the type to double for consistency
         std::cout << "Enter weight of each front seat occupant (pounds):";
         std::cin >> w;
         FrontSeatWeight.push_back(w);
@@ -28,12 +30,15 @@ int main()
     std::cin >> FrontSeatMomentArm;
     std::cout << "Enter number of rear seat occupants:";
     std::cin >> RearSeatOccupants;
+
+    // Using a range-based loop for RearSeatWeight input
     for (int i = 0; i < RearSeatOccupants; ++i) {
         int w = 0;
         std::cout << "Enter weight of each rear seat occupant (pounds):";
         std::cin >> w;
         RearSeatWeight.push_back(w);
     }
+
     std::cout << "Enter rear seat moment arm (inches):";
     std::cin >> RearSeatMomentArm;
     std::cout << "Enter number of gallons of usable fuel (gallons):";
@@ -47,7 +52,7 @@ int main()
     std::cout << "Enter baggage moment arm (inches): ";
     std::cin >> BaggageMomentArm;
 
-    // Calculations
+    // Calculations for every thing
     double FuelWeight = FuelGallons * FuelWeightPerGallon;
     double TotalFrontSeatWeight = std::accumulate(FrontSeatWeight.begin(), FrontSeatWeight.end(), 0);
     double TotalRearSeatWeight = std::accumulate(RearSeatWeight.begin(), RearSeatWeight.end(), 0);
@@ -80,13 +85,13 @@ int main()
                 continue;
             }
 
-            // Recalculate after adjustment
+            // Recalculate after adjustment of fuel
             FuelWeight = FuelGallons * FuelWeightPerGallon;
             totalWeight = emptyWeight + TotalFrontSeatWeight + TotalRearSeatWeight + FuelWeight + BaggageWeight;
             totalMoment = emptyWeightMoment + (TotalFrontSeatWeight * FrontSeatMomentArm) + (TotalRearSeatWeight * RearSeatMomentArm) + (FuelWeight * FuelMomentArm) + (BaggageWeight * BaggageMomentArm);
             cgLocation = totalMoment / totalWeight;
 
-            // Check for more adjustments
+            // More adusting
             if (totalWeight <= maxGrossWeight && cgLocation >= forwardCGLimit && cgLocation <= aftCGLimit) {
                 adjust = false;
             }
